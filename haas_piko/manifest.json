@@ -1,0 +1,9 @@
+{
+  "domain": "haas_piko",
+  "name": "Home Assistant Simple Kostal PIKO inverter integration.",
+  "documentation": "https://www.example.com",
+  "dependencies": [],
+  "codeowners": ["jens-markussen"],
+  "requirements": [],
+  "iot_class": "cloud_polling"
+}

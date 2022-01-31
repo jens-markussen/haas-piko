@@ -1,0 +1,1 @@
+"""Home Assistant Simple Kostal PIKO inverter integration."""
