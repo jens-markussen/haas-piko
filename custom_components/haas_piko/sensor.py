@@ -26,24 +26,22 @@ async def async_setup_entry(hass, entry, async_add_entities):
     piko = Piko(
         entry.data[CONF_HOST], entry.data[CONF_USERNAME], entry.data[CONF_PASSWORD]
     )
-    data = PikoData(piko, hass)
-
     entities = []
 
     for sensor in entry.data[CONF_MONITORED_CONDITIONS]:
-        entities.append(PikoSensor(data, sensor, entry.title))
+        entities.append(PikoSensor(piko, sensor, entry.title))
     async_add_entities(entities)
 
 
 class PikoSensor(Entity):
     """Representation of a Piko inverter sensor."""
 
-    def __init__(self, piko_data, sensor_type, name):
+    def __init__(self, piko, sensor_type, name):
         """Initialize the sensor."""
         self._sensor = SENSOR_TYPES[sensor_type][0]
         self._name = name
         self.type = sensor_type
-        self.piko = piko_data
+        self.piko = piko
         self._unit_of_measurement = SENSOR_TYPES[self.type][1]
         self._icon = SENSOR_TYPES[self.type][2]
         self.update()
@@ -93,20 +91,3 @@ class PikoSensor(Entity):
                 return self.piko.get_daily_energy()
             else:
                 return None
-
-class PikoData(Entity):
-    """Representation of a Piko data from inverter."""
-
-    def __init__(self, piko, hass):
-        """Initialize the data object."""
-        self.piko = piko
-        self.hass = hass
-        self.data = null
-
-    @Throttle(MIN_TIME_BETWEEN_UPDATES)
-    def update(self):
-        """Update inverter data."""
-        # pylint: disable=protected-access
-        self.data = self.piko._get_raw_content()
-        _LOGGER.debug(self.data)
-

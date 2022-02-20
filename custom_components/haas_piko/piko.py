@@ -30,7 +30,7 @@ class Piko():
         self.host = host
         self.username = username
         self.password = password
-        self.lastUpdate = time.time() - MIN_TIME_BETWEEN_UPDATES - 1
+        self.lastUpdate = 0
         self.data = null
 
     def get_logdaten_dat(self):
@@ -59,7 +59,7 @@ class Piko():
             return 0
 
     def _get_raw_content(self):
-        if time.time() < self.lastUpdate + MIN_TIME_BETWEEN_UPDATES:
+        if time.time() < self.lastUpdate + MIN_TIME_BETWEEN_UPDATES and self.data != null:
             return self.data
         self.lastUpdate = time.time()
     
@@ -77,5 +77,3 @@ class Piko():
         
         self.data = html
         return html
-
-
