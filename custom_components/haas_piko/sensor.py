@@ -2,7 +2,8 @@
 
 import logging
 
-from piko import Piko
+# from piko import Piko
+import piko
 
 from homeassistant.const import (
     CONF_USERNAME,
