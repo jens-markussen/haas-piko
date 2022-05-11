@@ -3,9 +3,7 @@ from datetime import timedelta
 
 from homeassistant.const import (
     POWER_WATT,
-    ENERGY_KILO_WATT_HOUR,
-    VOLT,
-    ELECTRICAL_CURRENT_AMPERE,
+    ENERGY_KILO_WATT_HOUR
 )
 
 DOMAIN = "kostal"

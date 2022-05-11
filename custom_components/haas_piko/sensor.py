@@ -4,11 +4,11 @@ import logging
 
 from .piko import Piko
 
+
 from homeassistant.const import (
     CONF_USERNAME,
     CONF_PASSWORD,
-    CONF_HOST,
-    CONF_MONITORED_CONDITIONS,
+    CONF_HOST
 )
 
 from homeassistant.helpers.entity import Entity
@@ -16,6 +16,12 @@ from homeassistant.util import Throttle
 
 
 from .const import SENSOR_TYPES, MIN_TIME_BETWEEN_UPDATES, DOMAIN
+
+DEFAULT_MONITORED_CONDITIONS = [
+    "current_power",
+    "total_energy",
+    "daily_energy"
+]
 
 _LOGGER = logging.getLogger(__name__)
 
@@ -28,7 +34,7 @@ async def async_setup_entry(hass, entry, async_add_entities):
     )
     entities = []
 
-    for sensor in entry.data[CONF_MONITORED_CONDITIONS]:
+    for sensor in DEFAULT_MONITORED_CONDITIONS:
         entities.append(PikoSensor(piko, sensor, entry.title))
     async_add_entities(entities)
 
