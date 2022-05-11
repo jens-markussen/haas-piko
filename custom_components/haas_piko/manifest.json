@@ -1,5 +1,5 @@
 {
-  "domain": "haas_piko",
+  "domain": "piko",
   "name": "Home Assistant Simple Kostal PIKO inverter integration.",
   "version": "0.0.1",
   "documentation": "https://github.com/jens-markussen/haas-piko",

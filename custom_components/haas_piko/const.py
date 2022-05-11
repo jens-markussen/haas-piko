@@ -6,9 +6,9 @@ from homeassistant.const import (
     ENERGY_KILO_WATT_HOUR
 )
 
-DOMAIN = "kostal"
+DOMAIN = "piko"
 
-DEFAULT_NAME = "Kostal piko"
+DEFAULT_NAME = "piko"
 
 MIN_TIME_BETWEEN_UPDATES = timedelta(seconds=30)
 
