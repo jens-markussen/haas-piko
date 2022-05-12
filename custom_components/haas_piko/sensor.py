@@ -26,17 +26,25 @@ DEFAULT_MONITORED_CONDITIONS = [
 _LOGGER = logging.getLogger(__name__)
 
 
-async def async_setup_entry(hass, entry, async_add_entities):
-    """Add an Kostal piko entry."""
-    # Add the needed sensors to hass
-    piko = Piko(
-        entry.data[CONF_HOST], entry.data[CONF_USERNAME], entry.data[CONF_PASSWORD]
-    )
-    entities = []
+def setup_platform(
+    hass: HomeAssistant,
+    config: ConfigType,
+    add_entities: AddEntitiesCallback,
+    discovery_info: DiscoveryInfoType | None = None
+) -> None:
+    """Set up the Awesome Light platform."""
+    # Assign configuration variables.
+    # The configuration check takes care they are present.
+    host = config[CONF_HOST]
+    username = config[CONF_USERNAME]
+    password = config.get(CONF_PASSWORD)
 
+    # Add the needed sensors to hass
+    piko = Piko(host, username, password)
+    entities = []
     for sensor in DEFAULT_MONITORED_CONDITIONS:
-        entities.append(PikoSensor(piko, sensor, entry.title))
-    async_add_entities(entities)
+        entities.append(PikoSensor(piko, sensor, config.title))
+    add_entities(entities)
 
 
 class PikoSensor(Entity):
