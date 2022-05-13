@@ -26,6 +26,13 @@ DEFAULT_MONITORED_CONDITIONS = [
 _LOGGER = logging.getLogger(__name__)
 
 
+
+def setup(hass, config):
+    
+    # Return boolean to indicate that initialization was successful.
+    return True
+
+
 def setup_platform(
     hass: HomeAssistant,
     config: ConfigType,
