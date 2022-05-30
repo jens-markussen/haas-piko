@@ -33,7 +33,7 @@ def setup(hass, config):
     return True
 
 
-def setup_platform(
+async def async_setup_platform(
     hass: HomeAssistant,
     config: ConfigType,
     add_entities: AddEntitiesCallback,
@@ -51,13 +51,14 @@ def setup_platform(
     entities = []
     for sensor in DEFAULT_MONITORED_CONDITIONS:
         entities.append(PikoSensor(piko, sensor, config.title))
-    add_entities(entities)
+    async_add_entities(entities)
 
 
 class PikoSensor(Entity):
     """Representation of a Piko inverter sensor."""
 
     def __init__(self, piko, sensor_type, name):
+        super().__init__()
         """Initialize the sensor."""
         self._sensor = SENSOR_TYPES[sensor_type][0]
         self._name = name
@@ -101,7 +102,7 @@ class PikoSensor(Entity):
             "manufacturer": "Kostal"
         }
 
-    def update(self):
+    def async_update(self):
         """Update data."""
         if data is not None:
             if self.type == "current_power":
