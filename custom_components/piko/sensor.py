@@ -4,7 +4,6 @@ import logging
 
 from .piko import Piko
 
-
 from homeassistant.const import (
     CONF_USERNAME,
     CONF_PASSWORD,
@@ -13,7 +12,6 @@ from homeassistant.const import (
 
 from homeassistant.helpers.entity import Entity
 from homeassistant.util import Throttle
-
 
 from .const import SENSOR_TYPES, MIN_TIME_BETWEEN_UPDATES, DOMAIN
 
@@ -26,13 +24,6 @@ DEFAULT_MONITORED_CONDITIONS = [
 _LOGGER = logging.getLogger(__name__)
 
 
-
-def setup(hass, config):
-    
-    # Return boolean to indicate that initialization was successful.
-    return True
-
-
 async def async_setup_platform(
     hass: HomeAssistant,
     config: ConfigType,
@@ -42,8 +33,8 @@ async def async_setup_platform(
     """Set up the Awesome Light platform."""
     # Assign configuration variables.
     # The configuration check takes care they are present.
-    host = config[CONF_HOST]
-    username = config[CONF_USERNAME]
+    host = config.get(CONF_HOST)
+    username = config.get(CONF_USERNAME)
     password = config.get(CONF_PASSWORD)
 
     # Add the needed sensors to hass
